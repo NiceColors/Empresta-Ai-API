@@ -23,6 +23,12 @@ class UsersRepository implements IUsersRepository {
             },
         });
     }
+
+    async list(): Promise<User[]> {
+        const users = await this.repository.findMany();
+
+        return users;
+    }
 }
 
 export { UsersRepository };

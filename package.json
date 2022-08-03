@@ -41,7 +41,6 @@
   "scripts": {
     "start": "node build/src/server.js",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn --files ./src/server.ts",
-    "build": "tsc",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
+    "build": "tsc"
   }
 }
