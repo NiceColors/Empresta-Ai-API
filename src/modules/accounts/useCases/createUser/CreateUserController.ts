@@ -13,7 +13,9 @@ class CreateUserController {
             password,
         });
 
-        return response.status(201).send();
+        return response.status(201).send({
+            message: "Usuário criado com sucesso",
+        });
     }
 }
 

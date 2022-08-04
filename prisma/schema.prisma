@@ -18,5 +18,58 @@ model Book {
     id          String   @id @unique @default(uuid())
     title       String
     author      String
-    releaseYear DateTime
+    rent        Float
+    synopsis    String
+    pages       String
+    publisher   String
+    isbn        String   @unique
+    bannerUrl   String
+    releaseYear DateTime @default(now())
+    Loan        Loan[]
+}
+
+model Employee {
+    id          String   @id @unique @default(uuid())
+    role        Role     @default(MANAGER)
+    permissions String
+    name        String
+    cpf         String   @unique
+    birthdate   DateTime
+    Loan        Loan[]
+}
+
+model Client {
+    id        String   @id @unique @default(uuid())
+    name      String
+    cpf       String   @unique
+    birthdate DateTime
+    Loan      Loan[]
+}
+
+model Loan {
+    id         String   @id @unique @default(uuid())
+    value      Float
+    employee   Employee @relation(fields: [employeeId], references: [id])
+    employeeId String
+    client     Client   @relation(fields: [clientId], references: [id])
+    clientId   String
+    status     Boolean  @default(false)
+    book       Book     @relation(fields: [bookId], references: [id])
+    bookId     String
+    startDate  DateTime @default(now())
+    endDate    DateTime
+    bookFine   BookFine @relation(fields: [bookFineId], references: [id])
+    bookFineId String
+}
+
+model BookFine {
+    id         String   @id @unique @default(uuid())
+    returnTime DateTime @default(now())
+    value      Float
+    Loan       Loan[]
+}
+
+enum Role {
+    MANAGER
+    INTERN
 }
