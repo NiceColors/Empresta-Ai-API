@@ -8,7 +8,7 @@ class UsersRepository implements IUsersRepository {
     private repository = prisma.user;
 
     async findByEmail(email: string): Promise<User> {
-        const user = await prisma.user.findUnique({
+        const user = await this.repository.findUnique({
             where: { email },
         });
 

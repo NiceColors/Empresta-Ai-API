@@ -1,11 +1,13 @@
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider          = "mysql"
-    url               = env("DATABASE_URL")
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+    provider             = "mysql"
+    url                  = env("DATABASE_URL")
+    shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
+    referentialIntegrity = "prisma"
 }
 
 model User {
@@ -30,7 +32,7 @@ model Book {
 
 model Employee {
     id          String   @id @unique @default(uuid())
-    role        Role     @default(MANAGER)
+    role        Role
     permissions String
     name        String
     cpf         String   @unique

@@ -1,6 +1,7 @@
 import { Book } from "@prisma/client";
 
 import { prisma } from "../../../database";
+import { ICreateBookDTO } from "../dtos/ICreateBookDTO";
 import { IBooksRepository } from "../repositories/IBooksRepository";
 
 class BooksRepository implements IBooksRepository {
@@ -14,12 +15,28 @@ class BooksRepository implements IBooksRepository {
         return books;
     }
 
-    async create({ title, author, releaseYear }: Book): Promise<void> {
+    async create({
+        title,
+        author,
+        releaseYear,
+        isbn,
+        bannerUrl,
+        pages,
+        synopsis,
+        publisher,
+        rent,
+    }: ICreateBookDTO): Promise<void> {
         await this.repository.create({
             data: {
                 title,
                 author,
                 releaseYear,
+                isbn,
+                bannerUrl,
+                pages,
+                synopsis,
+                publisher,
+                rent,
             },
         });
     }
