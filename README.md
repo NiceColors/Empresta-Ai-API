@@ -25,11 +25,6 @@ O <strong>Empresta Aí</strong> é um sistema de administração de livros feito
 
 > NOTE: Essa API ainda está em desenvolvimento, a maioria das funcionalidades listadas ainda estão em período de teste e podem sofrer alterações.
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/54453426/182992345-ab54aa47-2a38-4928-baef-94333a813887.png" alt="Logo">
-</p>
-
-
 # Funcionalidades
 
 _Nota: Links em destaque indicam que a funcionalidade está completa_
