@@ -1,15 +1,15 @@
 import { container } from "tsyringe";
 
-import { UsersRepository } from "../../modules/accounts/implementations/UsersRepository";
-import { IUsersRepository } from "../../modules/accounts/repositories/IUsersRepository";
+import { EmployeersRepository } from "../../modules/accounts/implementations/EmployeersRepository";
+import { UsersTokenRepository } from "../../modules/accounts/implementations/UsersTokenRepository";
+import { IEmployeeRepository } from "../../modules/accounts/repositories/IEmployeersRepository";
+import { IUsersTokenRepository } from "../../modules/accounts/repositories/IUsersTokenRepository";
 import { BooksRepository } from "../../modules/books/implementations/BooksRepository";
 import { IBooksRepository } from "../../modules/books/repositories/IBooksRepository";
-import { EmployeersRepository } from "../../modules/employeers/implementations/EmployeersRepository";
-import { IEmployeersRepository } from "../../modules/employeers/repositories/IEmployeeRepository";
 
-container.registerSingleton<IUsersRepository>(
-    "UsersRepository",
-    UsersRepository
+container.registerSingleton<IEmployeeRepository>(
+    "EmployeersRepository",
+    EmployeersRepository
 );
 
 container.registerSingleton<IBooksRepository>(
@@ -17,7 +17,7 @@ container.registerSingleton<IBooksRepository>(
     BooksRepository
 );
 
-container.registerSingleton<IEmployeersRepository>(
-    "EmployeersRepository",
-    EmployeersRepository
+container.registerSingleton<IUsersTokenRepository>(
+    "UsersTokenRepository",
+    UsersTokenRepository
 );

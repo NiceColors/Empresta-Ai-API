@@ -1,5 +1,8 @@
 import { Router } from "express";
 
+import { ensureAdmin } from "../middlewares/ensureAdmin";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import { ActualUserController } from "../modules/accounts/useCases/actualUser/ActualUserController";
 import { CreateUserController } from "../modules/accounts/useCases/createUser/CreateUserController";
 import { ListUsersController } from "../modules/accounts/useCases/listUsers/ListUsersController";
 
@@ -7,8 +10,12 @@ const usersRoutes = Router();
 
 const createUserController = new CreateUserController();
 const listUserController = new ListUsersController();
+const actualUserController = new ActualUserController();
 
-usersRoutes.post("/", createUserController.handle);
-usersRoutes.get("/", listUserController.handle);
+
+usersRoutes.post("/", ensureAdmin, ensureAuthenticated, createUserController.handle);
+usersRoutes.get("/", ensureAuthenticated, listUserController.handle);
+usersRoutes.get("/me", ensureAuthenticated, actualUserController.handle);
+
 
 export { usersRoutes };

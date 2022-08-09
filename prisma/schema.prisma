@@ -10,42 +10,17 @@ datasource db {
     referentialIntegrity = "prisma"
 }
 
-model User {
-    id       String @id @unique @default(uuid())
-    email    String @unique
-    password String
-}
-
-model Book {
-    id          String   @id @unique @default(uuid())
-    title       String
-    author      String
-    rent        Float
-    synopsis    String
-    pages       String
-    publisher   String
-    isbn        String   @unique
-    bannerUrl   String
-    releaseYear DateTime @default(now())
-    Loan        Loan[]
-}
-
 model Employee {
-    id          String   @id @unique @default(uuid())
-    role        Role
+    id          String      @id @unique @default(uuid())
+    email       String      @unique
+    password    String
+    UserToken   UserToken[]
+    role        Role        @default(INTERN)
     permissions String
     name        String
-    cpf         String   @unique
+    cpf         String      @unique
     birthdate   DateTime
     Loan        Loan[]
-}
-
-model Client {
-    id        String   @id @unique @default(uuid())
-    name      String
-    cpf       String   @unique
-    birthdate DateTime
-    Loan      Loan[]
 }
 
 model Loan {
@@ -62,6 +37,37 @@ model Loan {
     endDate    DateTime
     bookFine   BookFine @relation(fields: [bookFineId], references: [id])
     bookFineId String
+}
+
+model UserToken {
+    id           String   @id @default(uuid())
+    employee     Employee @relation(fields: [employeeId], references: [id])
+    employeeId   String
+    refreshToken String   @db.Text()
+    expires      DateTime
+    createdAt    DateTime @default(now())
+}
+
+model Book {
+    id          String   @id @unique @default(uuid())
+    title       String
+    author      String
+    rent        Float
+    synopsis    String
+    pages       Int
+    publisher   String
+    isbn        String   @unique
+    bannerUrl   String
+    releaseYear DateTime @default(now())
+    Loan        Loan[]
+}
+
+model Client {
+    id        String   @id @unique @default(uuid())
+    name      String
+    cpf       String   @unique
+    birthdate DateTime
+    Loan      Loan[]
 }
 
 model BookFine {

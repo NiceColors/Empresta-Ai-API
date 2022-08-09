@@ -1,11 +1,13 @@
 import { Role } from "@prisma/client";
 
 interface ICreateEmployeeDTO {
-    role: Role;
-    permissions: string;
+    email: string;
+    password: string;
     name: string;
     cpf: string;
     birthdate: Date;
+    role?: Role;
+    permissions: string;
 }
 
 export { ICreateEmployeeDTO };

@@ -1,11 +1,44 @@
 -- CreateTable
-CREATE TABLE `User` (
+CREATE TABLE `Employee` (
     `id` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `role` ENUM('MANAGER', 'INTERN') NOT NULL DEFAULT 'INTERN',
+    `permissions` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `cpf` VARCHAR(191) NOT NULL,
+    `birthdate` DATETIME(3) NOT NULL,
 
-    UNIQUE INDEX `User_id_key`(`id`),
-    UNIQUE INDEX `User_email_key`(`email`),
+    UNIQUE INDEX `Employee_id_key`(`id`),
+    UNIQUE INDEX `Employee_email_key`(`email`),
+    UNIQUE INDEX `Employee_cpf_key`(`cpf`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Loan` (
+    `id` VARCHAR(191) NOT NULL,
+    `value` DOUBLE NOT NULL,
+    `employeeId` VARCHAR(191) NOT NULL,
+    `clientId` VARCHAR(191) NOT NULL,
+    `status` BOOLEAN NOT NULL DEFAULT false,
+    `bookId` VARCHAR(191) NOT NULL,
+    `startDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `endDate` DATETIME(3) NOT NULL,
+    `bookFineId` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `Loan_id_key`(`id`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `UserToken` (
+    `id` VARCHAR(191) NOT NULL,
+    `employeeId` VARCHAR(191) NOT NULL,
+    `refreshToken` TEXT NOT NULL,
+    `expires` DATETIME(3) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -28,20 +61,6 @@ CREATE TABLE `Book` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Employee` (
-    `id` VARCHAR(191) NOT NULL,
-    `role` ENUM('MANAGER', 'INTERN') NOT NULL,
-    `permissions` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `cpf` VARCHAR(191) NOT NULL,
-    `birthdate` DATETIME(3) NOT NULL,
-
-    UNIQUE INDEX `Employee_id_key`(`id`),
-    UNIQUE INDEX `Employee_cpf_key`(`cpf`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `Client` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
@@ -50,22 +69,6 @@ CREATE TABLE `Client` (
 
     UNIQUE INDEX `Client_id_key`(`id`),
     UNIQUE INDEX `Client_cpf_key`(`cpf`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Loan` (
-    `id` VARCHAR(191) NOT NULL,
-    `value` DOUBLE NOT NULL,
-    `employeeId` VARCHAR(191) NOT NULL,
-    `clientId` VARCHAR(191) NOT NULL,
-    `status` BOOLEAN NOT NULL DEFAULT false,
-    `bookId` VARCHAR(191) NOT NULL,
-    `startDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `endDate` DATETIME(3) NOT NULL,
-    `bookFineId` VARCHAR(191) NOT NULL,
-
-    UNIQUE INDEX `Loan_id_key`(`id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

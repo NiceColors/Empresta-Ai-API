@@ -1,16 +1,18 @@
-import { User } from "@prisma/client";
+import { Employee } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 
-import { IUsersRepository } from "../../repositories/IUsersRepository";
+import { IEmployeeRepository } from "../../repositories/IEmployeersRepository";
+
+type TEmployee = Omit<Employee, "password">;
 
 @injectable()
 class ListUsersUseCase {
     constructor(
-        @inject("UsersRepository")
-        private usersRepository: IUsersRepository
+        @inject("EmployeersRepository")
+        private usersRepository: IEmployeeRepository
     ) {} // Msm coisa que definir o atributo privado antes e dps instaciar e atribuir um valor (this...0)
 
-    async execute(): Promise<User[]> {
+    async execute(): Promise<TEmployee[]> {
         const categories = await this.usersRepository.list();
 
         return categories;
