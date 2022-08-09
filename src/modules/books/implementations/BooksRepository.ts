@@ -3,6 +3,7 @@ import { Book } from "@prisma/client";
 import { prisma } from "../../../database";
 import { ICreateBookDTO } from "../dtos/ICreateBookDTO";
 import { IBooksRepository } from "../repositories/IBooksRepository";
+import { UpdateBook } from "../dtos/IUpdateBookDTO";
 
 class BooksRepository implements IBooksRepository {
     private repository = prisma.book;
@@ -44,6 +45,19 @@ class BooksRepository implements IBooksRepository {
     async list(): Promise<Book[]> {
         const books = await this.repository.findMany();
         return books;
+    }
+
+    //Isso aqui provavelmente tá errado
+    async update(isbn:string, new_book:UpdateBook): Promise<Book>{
+        const updateresult = await this.repository.update({
+            where: {
+                "isbn": isbn
+            },
+            data: {
+                ...new_book
+            }
+        });
+        return updateresult;
     }
 }
 

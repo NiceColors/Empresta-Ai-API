@@ -13,7 +13,8 @@ const listUserController = new ListUsersController();
 const actualUserController = new ActualUserController();
 
 
-usersRoutes.post("/", ensureAdmin, ensureAuthenticated, createUserController.handle);
+//ensureAdmin middleware not used for now 'cause it need refactoring
+usersRoutes.post("/", ensureAuthenticated, createUserController.handle);
 usersRoutes.get("/", ensureAuthenticated, listUserController.handle);
 usersRoutes.get("/me", ensureAuthenticated, actualUserController.handle);
 
