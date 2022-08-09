@@ -8,6 +8,7 @@ interface IBooksRepository {
     findByTitle(title: string): Promise<Book[]>;
     list(): Promise<Book[]>;
     update(isbn:string, new_book: UpdateBook): Promise<Book>;
+    delete(isbn:string): Promise<Book>;
 }
 
 export { IBooksRepository };

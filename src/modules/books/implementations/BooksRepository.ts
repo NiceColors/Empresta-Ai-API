@@ -59,6 +59,15 @@ class BooksRepository implements IBooksRepository {
         });
         return updateresult;
     }
+
+    async delete(isbn:string): Promise<Book>{
+        const deleteresult = await this.repository.delete({
+            where: {
+                isbn: isbn
+            }
+            });
+        return deleteresult;
+    }
 }
 
 export { BooksRepository };
