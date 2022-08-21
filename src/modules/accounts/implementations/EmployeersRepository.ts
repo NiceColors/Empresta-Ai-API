@@ -1,6 +1,7 @@
 import { Employee } from "@prisma/client";
 
 import { prisma } from "../../../database";
+import { AppError } from "../../../errors/AppError";
 import { ICreateEmployeeDTO } from "../dtos/ICreateEmployeeDTO";
 import { IEmployeeRepository } from "../repositories/IEmployeersRepository";
 
@@ -18,19 +19,13 @@ class EmployeersRepository implements IEmployeeRepository {
     }
 
     async findByEmail(email: string): Promise<Employee> {
-        try {
-            console.log(email);
 
-            const employee = await this.repository.findUnique({
-                where: {
-                    email,
-                },
-            });
-            return employee;
-
-        } catch (error) {
-            console.log(error);
-        }
+        const employee = await this.repository.findUnique({
+            where: {
+                email,
+            },
+        });
+        return employee;
 
     }
 

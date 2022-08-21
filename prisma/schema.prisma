@@ -6,7 +6,6 @@ generator client {
 datasource db {
     provider             = "mysql"
     url                  = env("DATABASE_URL")
-    shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
     referentialIntegrity = "prisma"
 }
 
@@ -21,6 +20,8 @@ model Employee {
     cpf         String      @unique
     birthdate   DateTime
     Loan        Loan[]
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
 }
 
 model Loan {
@@ -37,6 +38,8 @@ model Loan {
     endDate    DateTime
     bookFine   BookFine @relation(fields: [bookFineId], references: [id])
     bookFineId String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 }
 
 model UserToken {
@@ -60,6 +63,8 @@ model Book {
     bannerUrl   String
     releaseYear DateTime @default(now())
     Loan        Loan[]
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
 
 model Client {
@@ -68,6 +73,8 @@ model Client {
     cpf       String   @unique
     birthdate DateTime
     Loan      Loan[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model BookFine {
@@ -75,6 +82,8 @@ model BookFine {
     returnTime DateTime @default(now())
     value      Float
     Loan       Loan[]
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 }
 
 enum Role {

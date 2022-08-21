@@ -15,7 +15,7 @@ async function ensureAuthenticated(
     const authHeader = request.headers.authorization;
 
     const usersTokensRepository = new UsersTokenRepository();
-    const { secretRefreshToken } = auth;
+    const { secretToken } = auth;
 
     if (!authHeader) {
         throw new AppError("Token missing");
@@ -24,7 +24,7 @@ async function ensureAuthenticated(
     const [, token] = authHeader.split(" ");
 
     try {
-        const { sub: userId } = verify(token, secretRefreshToken) as TPayload;
+        const { sub: userId } = verify(token, secretToken) as TPayload;
 
         const user = await usersTokensRepository.findByUserIdAndRefreshToken(
             userId

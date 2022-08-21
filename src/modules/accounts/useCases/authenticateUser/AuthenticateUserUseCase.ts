@@ -46,15 +46,15 @@ class AuthenticateUserUseCase {
             expiresInRefreshToken,
         } = auth;
 
-        if (!user) throw new AppError("Email or password incorrect!");
+        if (!user) throw new AppError("Email ou senha incorretos");
 
         const passwordMatch = await compare(password, user.password);
 
-        if (!passwordMatch) throw new AppError("Email or password incorrect!");
+        if (!passwordMatch) throw new AppError("Email ou senha incorretos");
 
         const token = sign({ email, permissions, role, name }, secretToken, {
             subject: user.id,
-            expiresIn: 6000,
+            expiresIn: expiresIn,
         });
 
         const refreshToken = sign(
