@@ -17,6 +17,7 @@ async function ensureAuthenticated(
     const usersTokensRepository = new UsersTokenRepository();
     const { secretToken } = auth;
 
+
     if (!authHeader) {
         throw new AppError("Token missing");
     }
@@ -24,6 +25,9 @@ async function ensureAuthenticated(
     const [, token] = authHeader.split(" ");
 
     try {
+
+        console.log('ensure:', token)
+
         const { sub: userId } = verify(token, secretToken) as TPayload;
 
         const user = await usersTokensRepository.findByUserIdAndRefreshToken(
@@ -39,7 +43,7 @@ async function ensureAuthenticated(
         };
         return next();
     } catch (error) {
-        throw new AppError("Invalid token");
+        throw new AppError("Invalid token", 401);
     }
 }
 

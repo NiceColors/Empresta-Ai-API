@@ -15,9 +15,12 @@ class RefreshTokenUseCase {
     constructor(
         @inject("UsersTokenRepository")
         private usersTokenRepository: IUsersTokenRepository
-    ) {}
+    ) { }
 
     async execute(token: string): Promise<string | Response> {
+
+        console.log('refreshToken:', token)
+
         const { email, sub: userId } = verify(
             token,
             auth.secretRefreshToken
@@ -44,7 +47,12 @@ class RefreshTokenUseCase {
             employeeId: userId,
         });
 
-        return refreshToken;
+        const newToken = sign({ email }, auth.secretToken, {
+            subject: userId,
+            expiresIn: auth.expiresIn,
+        });
+
+        return newToken;
     }
 }
 
