@@ -1,6 +1,6 @@
 export default {
     secretToken: "secret",
     secretRefreshToken: "secretRefreshToken",
-    expiresIn: "5s",
-    expiresInRefreshToken: "1h",
+    expiresIn: "15m",
+    expiresInRefreshToken: "8h",
 };
