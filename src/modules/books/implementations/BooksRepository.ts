@@ -5,7 +5,7 @@ import { ICreateBookDTO } from "../dtos/ICreateBookDTO";
 import { IBooksRepository } from "../repositories/IBooksRepository";
 import { UpdateBook } from "../dtos/IUpdateBookDTO";
 
-type BooksResponse = {
+type ListBooksResponse = {
     page: number;
     limit: number;
     total: number;
@@ -21,22 +21,23 @@ class BooksRepository implements IBooksRepository {
         releaseYear,
         isbn,
         bannerUrl,
+        loanRate,
         pages,
         synopsis,
         publisher,
-        rent,
+
     }: ICreateBookDTO): Promise<void> {
         await this.repository.create({
             data: {
                 title,
                 author,
                 releaseYear,
+                loanRate,
                 isbn,
                 bannerUrl,
                 pages,
                 synopsis,
                 publisher,
-                rent,
             },
         });
     }
@@ -51,7 +52,7 @@ class BooksRepository implements IBooksRepository {
     }
 
 
-    async list({ page = 0, limit = 10, query = '' }): Promise<BooksResponse> {
+    async list({ page = 0, limit = 10, query = '' }): Promise<ListBooksResponse> {
 
         const booksLength = await this.repository.count();
 

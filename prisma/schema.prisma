@@ -15,7 +15,7 @@ model Employee {
     password    String
     UserToken   UserToken[]
     role        Role        @default(INTERN)
-    permissions String
+    permissions String      @default("[]")
     name        String
     cpf         String      @unique
     birthdate   DateTime
@@ -36,8 +36,7 @@ model Client {
 
 model Loan {
     id         String   @id @unique @default(uuid())
-    value      Float
-    employee   Employee @relation(fields: [employeeId], references: [id])
+    employee   Employee @relation(fields: [employeeId], references: [id]) 
     employeeId String
     client     Client   @relation(fields: [clientId], references: [id])
     clientId   String
@@ -46,8 +45,6 @@ model Loan {
     bookId     String
     startDate  DateTime @default(now())
     endDate    DateTime
-    bookFine   BookFine @relation(fields: [bookFineId], references: [id])
-    bookFineId String
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 }
@@ -56,26 +53,17 @@ model Book {
     id          String   @id @unique @default(uuid())
     title       String
     status      Boolean  @default(false)
-    author      String
-    rent        Float
-    synopsis    String
-    pages       Int
-    publisher   String
+    author      String   @default("")
+    loanRate    Float    @default(5)
+    synopsis    String   @default("")
+    pages       Int      @default(0)
+    publisher   String   @default("")
     isbn        String
-    bannerUrl   String
+    bannerUrl   String   @default("")
     releaseYear DateTime @default(now())
     Loan        Loan[]
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
-}
-
-model BookFine {
-    id         String   @id @unique @default(uuid())
-    returnTime DateTime @default(now())
-    value      Float
-    Loan       Loan[]
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
 }
 
 model UserToken {

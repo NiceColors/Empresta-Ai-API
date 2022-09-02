@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { DeleteClienteUseCase } from "./deleteClientUseCase";
+import { DeleteClienteUseCase } from "./DeleteClientUseCase";
 
 
 class DeleteClientController {
