@@ -36,11 +36,11 @@ model Client {
 
 model Loan {
     id         String   @id @unique @default(uuid())
-    employee   Employee @relation(fields: [employeeId], references: [id]) 
+    employee   Employee @relation(fields: [employeeId], references: [id])
     employeeId String
     client     Client   @relation(fields: [clientId], references: [id])
     clientId   String
-    status     Boolean  @default(false)
+    status     Boolean  @default(true)
     book       Book     @relation(fields: [bookId], references: [id])
     bookId     String
     startDate  DateTime @default(now())

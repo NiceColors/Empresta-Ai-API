@@ -1,9 +1,0 @@
--- DropIndex
-DROP INDEX `Book_isbn_key` ON `book`;
-
--- AlterTable
-ALTER TABLE `book` ADD COLUMN `status` BOOLEAN NOT NULL DEFAULT false,
-    MODIFY `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
-
--- AlterTable
-ALTER TABLE `client` MODIFY `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);

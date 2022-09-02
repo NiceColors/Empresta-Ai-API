@@ -4,9 +4,11 @@ import { LoanResponse } from "../implementations/LoansRepository";
 
 interface ILoansRepository {
     create(data: ICreateLoanDTO): Promise<void>;
-    findById(id: string): Promise<LoanResponse | undefined>;
-    update(loan: Loan): Promise<Loan>;
+    update({ ...loan }: Loan): Promise<Loan>;
     delete(id: string): Promise<void>;
+    list(): Promise<LoanResponse[]>;
+    findById(id: string): Promise<LoanResponse | undefined>;
+    findByClientId(clientId: string): Promise<Loan[]>;
 }
 
 export { ILoansRepository };

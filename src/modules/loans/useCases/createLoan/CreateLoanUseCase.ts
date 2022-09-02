@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { IEmployeeRepository } from "../../../accounts/repositories/IEmployeersRepository";
+import { IBooksRepository } from "../../../books/repositories/IBooksRepository";
 import { IClientsRepository } from "../../../clients/repositories/IClientRepository";
 import { ICreateLoanDTO } from "../../dtos/ICreateLoanDTO";
 import { ILoansRepository } from "../../repositories/ILoansRepository";
@@ -13,15 +14,18 @@ class CreateLoanUseCase {
         private loansRepository: ILoansRepository,
         @inject("ClientsRepository")
         private clientsRepository: IClientsRepository,
-        @inject("EmployeeRepository")
+        @inject("EmployeersRepository")
         private employeeRepository: IEmployeeRepository,
+        @inject("BooksRepository")
+        private booksRepository: IBooksRepository
     ) { }
 
-    async execute({ employeeId, ...loan }: ICreateLoanDTO): Promise<void> {
-        const clientAlreadyHasLoan = await this.clientsRepository.findById(loan.clientId)
 
-        if (clientAlreadyHasLoan) {
-            throw new Error('User already has a loan.');
+    async execute({ employeeId, clientId, ...loan }: ICreateLoanDTO): Promise<void> {
+        const clientAlreadyHasLoan = await this.loansRepository.findByClientId(clientId)
+
+        if (clientAlreadyHasLoan?.length > 0) {
+            throw new Error('Client already has a loan.');
         }
 
         const user = await this.employeeRepository.findById(employeeId);
@@ -30,7 +34,9 @@ class CreateLoanUseCase {
             throw new Error('User not found.');
         }
 
-        await this.loansRepository.create({ employeeId, ...loan });
+        await this.booksRepository.update(loan.bookId, { status: false });
+
+        await this.loansRepository.create({ employeeId, clientId, ...loan });
     }
 
 }
