@@ -4,7 +4,7 @@ import { ICreateClientDTO } from "../dtos/ICreateClientDTO";
 import { IUpdateClientDTO } from "../dtos/IUpdateClientDTO";
 import { IClientResponse, IClientsRepository } from "../repositories/IClientRepository";
 
-class ClientRepository implements IClientsRepository {
+class ClientsRepository implements IClientsRepository {
 
     private repository = prisma.client;
 
@@ -71,4 +71,4 @@ class ClientRepository implements IClientsRepository {
 
 }
 
-export { ClientRepository }
+export { ClientsRepository }

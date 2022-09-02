@@ -1,9 +1,9 @@
 import { Router } from 'express'
 
-import { CreateClientController } from "../modules/clients/useCases/createClient/createClientController";
-import { DeleteClientController } from '../modules/clients/useCases/deleteClient/deleteClientController';
-import { ListClientsController } from '../modules/clients/useCases/listClients/listClientsController';
-import { UpdateClientController } from '../modules/clients/useCases/updateClient/updateClientController';
+import { CreateClientController } from "../modules/clients/useCases/createClient/CreateClientController";
+import { DeleteClientController } from '../modules/clients/useCases/deleteClient/DeleteClientController';
+import { ListClientsController } from '../modules/clients/useCases/listClients/ListClientsController';
+import { UpdateClientController } from '../modules/clients/useCases/updateClient/UpdateClientController';
 
 
 const clientsRoutes = Router();
