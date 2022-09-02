@@ -1,4 +1,4 @@
-import "reflect-metadata"; 
+import "reflect-metadata";
 import cors from "cors"; // Importar o cors
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
@@ -9,7 +9,7 @@ import { router } from "./api";
 import swaggerFile from "./swagger.json";
 
 import "./database";
-import "./shared/container"; 
+import "./shared/container";
 
 const port = 3333; // Porta que o servidor vai rodar
 const app = express(); // Instanciando o express
@@ -36,7 +36,6 @@ app.use( // Middleware de tratamento de erros
     }
 );
 
-// app.listen(3333, () => console.log("Server is running!"));
-app.listen(port, () => { 
-    console.log(`Server is running in http://localhost:${port}`);
+app.listen(port, () => {
+    console.log(`Server is running`);
 });
