@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 
 import { IEmployeeRepository } from "../../repositories/IEmployeersRepository";
 
-type TEmployee = Omit<Employee, "password" | "id">;
+type TEmployee = Omit<Employee, "password" | "id" | "createdAt" | "updatedAt">;
 
 @injectable()
 class ActualUserUseCase {
