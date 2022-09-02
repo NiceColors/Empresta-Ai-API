@@ -1,15 +1,18 @@
-import { inject, injectable} from "tsyringe";
-import { IBooksRepository  } from "../../repositories/IBooksRepository";
+import { inject, injectable } from "tsyringe";
+import { IBooksRepository } from "../../repositories/IBooksRepository";
 
 @injectable()
-class DeleteBookUseCase{
+class DeleteBookUseCase {
     constructor(
         @inject("BooksRepository")
         private booksRepository: IBooksRepository
-    ){}
+    ) { }
 
-    async execute(isbn: string): Promise<void>{
-        await this.booksRepository.delete(isbn);
+    async execute({ id, isbn }): Promise<void> {
+        if (isbn) {
+            await this.booksRepository.deleteAll(isbn);
+        }
+        await this.booksRepository.delete(id)
     }
 }
 

@@ -1,4 +1,6 @@
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import { ILoansRepository } from "../../../loans/repositories/ILoansRepository";
 
 import { UpdateBook } from "../../dtos/IUpdateBookDTO";
 import { IBooksRepository } from "../../repositories/IBooksRepository";
@@ -7,12 +9,18 @@ import { IBooksRepository } from "../../repositories/IBooksRepository";
 class UpdateBookUseCase {
     constructor(
         @inject("BooksRepository")
-        private booksRepository: IBooksRepository
-    ) {}
+        private booksRepository: IBooksRepository,
+    ) { }
 
-    async execute(isbn:string, book: UpdateBook): Promise<void> {
+    async execute(isbn: string, book: UpdateBook): Promise<void> {
+//         const booksHasLoan = await this.loanRepository.findById(book.id);
+// 
+//         if (booksHasLoan) {
+//             throw new AppError("Book has loan", 422);
+//         }
+
         await this.booksRepository.update(isbn, book);
-        // Não permitir criação de um livro já existente
+
     }
 }
 
