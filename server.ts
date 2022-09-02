@@ -4,12 +4,12 @@ import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 
-import { AppError } from "./errors/AppError";
-import { router } from "./api";
-import swaggerFile from "./swagger.json";
+import { AppError } from "./api/errors/AppError";
+import { router } from "./api/routes";
+import swaggerFile from "./api/swagger.json";
 
-import "./database";
-import "./shared/container";
+import "./api/database";
+import "./api/shared/container";
 
 const port = 3333; // Porta que o servidor vai rodar
 const app = express(); // Instanciando o express
