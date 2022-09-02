@@ -6,6 +6,8 @@ import { IEmployeeRepository } from "../../modules/accounts/repositories/IEmploy
 import { IUsersTokenRepository } from "../../modules/accounts/repositories/IUsersTokenRepository";
 import { BooksRepository } from "../../modules/books/implementations/BooksRepository";
 import { IBooksRepository } from "../../modules/books/repositories/IBooksRepository";
+import { ClientRepository } from "../../modules/clients/implementations/clientRepository";
+import { IClientsRepository } from "../../modules/clients/repositories/IClientRepository";
 
 container.registerSingleton<IEmployeeRepository>(
     "EmployeersRepository",
@@ -21,3 +23,13 @@ container.registerSingleton<IUsersTokenRepository>(
     "UsersTokenRepository",
     UsersTokenRepository
 );
+
+container.registerSingleton<IClientsRepository>(
+    "ClientsRepository",
+    ClientRepository
+)
+
+// container.registerSingleton<ILoansRepository>(
+//     "LoansRepository",
+//     LoansRepository
+// )
