@@ -38,9 +38,6 @@
     },
     "main": "index.js",
     "scripts": {
-        "start": "node build/src/server.js",
-        "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn --files ./src/server.ts",
-        "build": "tsc",
         "reset": "prisma migrate reset -f",
         "migrate": "prisma migrate dev --skip-generate",
         "seed": "npm run reset && npm run migrate && ts-node-dev --transpile-only prisma/seed.ts"

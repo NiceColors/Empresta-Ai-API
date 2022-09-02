@@ -34,9 +34,9 @@ async function ensureAuthenticated(
             throw new AppError("User does not exist!");
         }
 
-        request.user = {
+        request.user= {
             id: userId,
-        };
+        } as any;
 
         return next();
         

@@ -6,7 +6,7 @@ import { IEmployeeRepository } from "../../modules/accounts/repositories/IEmploy
 import { IUsersTokenRepository } from "../../modules/accounts/repositories/IUsersTokenRepository";
 import { BooksRepository } from "../../modules/books/implementations/BooksRepository";
 import { IBooksRepository } from "../../modules/books/repositories/IBooksRepository";
-import { ClientsRepository } from "../../modules/clients/implementations/clientRepository";
+import { ClientsRepository } from "../../modules/clients/implementations/ClientRepository";
 import { IClientsRepository } from "../../modules/clients/repositories/IClientRepository";
 import { LoansRepository } from "../../modules/loans/implementations/LoansRepository";
 import { ILoansRepository } from "../../modules/loans/repositories/ILoansRepository";

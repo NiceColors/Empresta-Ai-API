@@ -5,7 +5,7 @@ import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 
 import { AppError } from "./errors/AppError";
-import { router } from "./api";
+import { router } from "./routes";
 import swaggerFile from "./swagger.json";
 
 import "./database";
@@ -36,6 +36,5 @@ app.use( // Middleware de tratamento de erros
     }
 );
 
-app.listen(port, () => {
-    console.log(`Server is running`);
-});
+
+export { app as server }
