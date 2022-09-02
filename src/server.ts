@@ -36,6 +36,5 @@ app.use( // Middleware de tratamento de erros
     }
 );
 
-app.listen(port, () => {
-    console.log(`Server is running`);
-});
+
+export { app as server }
