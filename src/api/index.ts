@@ -7,7 +7,9 @@ import { loansRoutes } from "./loans.routes";
 import { usersRoutes } from "./users.routes";
 
 const router = Router();
-
+router.get('/', (request, response) => {
+    return response.json({ message: 'Hello World' });
+})
 router.use("/users", usersRoutes);
 router.use("/books", booksRoutes);
 router.use("/clients", clientsRoutes)
