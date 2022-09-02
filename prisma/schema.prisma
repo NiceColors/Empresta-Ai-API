@@ -24,6 +24,16 @@ model Employee {
     updatedAt   DateTime    @updatedAt
 }
 
+model Client {
+    id        String   @id @unique @default(uuid())
+    name      String
+    cpf       String   @unique
+    birthdate DateTime
+    Loan      Loan[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
 model Loan {
     id         String   @id @unique @default(uuid())
     value      Float
@@ -42,39 +52,21 @@ model Loan {
     updatedAt  DateTime @updatedAt
 }
 
-model UserToken {
-    id           String   @id @default(uuid())
-    employee     Employee @relation(fields: [employeeId], references: [id])
-    employeeId   String
-    refreshToken String   @db.Text()
-    expires      DateTime
-    createdAt    DateTime @default(now())
-}
-
 model Book {
     id          String   @id @unique @default(uuid())
     title       String
+    status      Boolean  @default(false)
     author      String
     rent        Float
     synopsis    String
     pages       Int
     publisher   String
-    isbn        String   @unique
+    isbn        String
     bannerUrl   String
     releaseYear DateTime @default(now())
     Loan        Loan[]
     createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-}
-
-model Client {
-    id        String   @id @unique @default(uuid())
-    name      String
-    cpf       String   @unique
-    birthdate DateTime
-    Loan      Loan[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model BookFine {
@@ -84,6 +76,15 @@ model BookFine {
     Loan       Loan[]
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
+}
+
+model UserToken {
+    id           String   @id @default(uuid())
+    employee     Employee @relation(fields: [employeeId], references: [id])
+    employeeId   String
+    refreshToken String   @db.Text()
+    expires      DateTime
+    createdAt    DateTime @default(now())
 }
 
 enum Role {
