@@ -37,12 +37,15 @@ async function main() {
     console.log(`Seeding finished.`);
 }
 
-main()
-    .then(async () => {
-        await prisma.$disconnect();
-    })
-    .catch(async (e) => {
+export default async function seed() {
+    try {
+        await main();
+    } catch (e) {
         console.error(e);
-        await prisma.$disconnect();
         process.exit(1);
-    });
+    } finally {
+        await prisma.$disconnect();
+    }
+}
+
+seed()

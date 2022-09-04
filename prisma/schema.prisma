@@ -52,15 +52,15 @@ model Loan {
 
 model Book {
     id          String   @id @unique @default(uuid())
-    title       String
+    title       String   @db.VarChar(255)
     status      Boolean  @default(false)
-    author      String   @default("")
+    author      String   @default("") @db.VarChar(200)
     loanRate    Float    @default(5)
-    synopsis    String   @default("")
+    synopsis    String   @default("") @db.Text
     pages       Int      @default(0)
-    publisher   String   @default("")
-    isbn        String
-    bannerUrl   String   @default("")
+    publisher   String   @default("") @db.VarChar(100)
+    isbn        String   @default("") @db.VarChar(100)
+    bannerUrl   String   @default("") @db.Text
     releaseYear DateTime @default(now())
     Loan        Loan[]
     createdAt   DateTime @default(now())
