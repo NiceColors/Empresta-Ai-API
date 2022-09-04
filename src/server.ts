@@ -18,7 +18,7 @@ app.use(express.json()); // Para o express entender o formato json
 
 app.use(cors()); // Deixando as rotas acessíveis para qualquer endereço
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile)); // Rota para acessar a documentação
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile)); // Rota para acessar a documentação
 
 app.use(router); // Usando as rotas
 
