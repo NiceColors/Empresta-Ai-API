@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { CreateLoanController } from '../modules/loans/useCases/createLoan/CreateLoanController';
 import { DeleteLoanController } from '../modules/loans/useCases/deleteLoan/DeleteLoanController';
 import { ListLoansController } from '../modules/loans/useCases/listLoans/ListLoansController';
@@ -13,9 +14,10 @@ const loanDeleteController = new DeleteLoanController();
 const loanUpdateController = new UpdateLoanController();
 const loanListController = new ListLoansController();
 
-loansRoutes.get('/', loanListController.handle)
-loansRoutes.post('/', loanCreateController.handle)
-loansRoutes.delete('/', loanDeleteController.handle)
-loansRoutes.put('/', loanUpdateController.handle)
+//Não usar o ensureAdmin pois ainda é preciso refatorar
+loansRoutes.get('/', ensureAuthenticated, loanListController.handle)
+loansRoutes.post('/', ensureAuthenticated, loanCreateController.handle)
+loansRoutes.delete('/', ensureAuthenticated, loanDeleteController.handle)
+loansRoutes.put('/', ensureAuthenticated, loanUpdateController.handle)
 
 export { loansRoutes };

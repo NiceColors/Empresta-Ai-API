@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 import { CreateClientController } from "../modules/clients/useCases/createClient/CreateClientController";
 import { DeleteClientController } from '../modules/clients/useCases/deleteClient/DeleteClientController';
@@ -13,9 +14,9 @@ const deleteClient = new DeleteClientController()
 const updateClient = new UpdateClientController();
 const listClients = new ListClientsController();
 
-clientsRoutes.post('/', createClient.handle)
-clientsRoutes.get('/', listClients.handle)
-clientsRoutes.put('/', updateClient.handle)
-clientsRoutes.delete('/', deleteClient.handle)
+clientsRoutes.post('/', ensureAuthenticated, createClient.handle)
+clientsRoutes.get('/', ensureAuthenticated, listClients.handle)
+clientsRoutes.put('/', ensureAuthenticated, updateClient.handle)
+clientsRoutes.delete('/', ensureAuthenticated, deleteClient.handle)
 
 export { clientsRoutes };

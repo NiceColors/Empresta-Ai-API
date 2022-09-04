@@ -11,6 +11,7 @@ router.get('/', (request, response) => {
     return response.json({ message: 'Hello World' });
 })
 
+//Não usar o ensureAdmin pois ainda é preciso refatorar
 router.use("/users", usersRoutes);
 router.use("/books", booksRoutes);
 router.use("/clients", clientsRoutes)
