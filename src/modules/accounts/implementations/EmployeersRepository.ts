@@ -52,10 +52,12 @@ class EmployeersRepository implements IEmployeeRepository {
     }
 
     async list({ page = 0, limit = 8, query = '' }): Promise<any> {
+
+        //somente o administrador pode receber os cpfs
+   
+        
+
         const usersLength = await this.repository.count();
-
-        console.log(limit)
-
         const users = await this.repository.findMany({
             skip: page * limit,
             take: limit,
@@ -89,9 +91,9 @@ class EmployeersRepository implements IEmployeeRepository {
                 id,
             },
         });
-        if (!employee) 
+        if (!employee)
             throw new AppError('User not found', 402);
-        
+
         const updateEmployee = await this.repository.update({
             where: {
                 id,
@@ -101,9 +103,9 @@ class EmployeersRepository implements IEmployeeRepository {
             }
         });
 
-        if (!updateEmployee) 
+        if (!updateEmployee)
             throw new AppError('Error', 401);
-        
+
     }
 
 

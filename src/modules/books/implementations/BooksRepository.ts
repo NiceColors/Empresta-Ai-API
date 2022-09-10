@@ -5,13 +5,7 @@ import { ICreateBookDTO } from "../dtos/ICreateBookDTO";
 import { IBooksRepository } from "../repositories/IBooksRepository";
 import { UpdateBook } from "../dtos/IUpdateBookDTO";
 
-type ListBooksResponse = {
-    page: number;
-    limit: number;
-    total: number;
-    books: Book[]
-    nextPage: number;
-}
+
 class BooksRepository implements IBooksRepository {
     private repository = prisma.book;
 
@@ -52,7 +46,7 @@ class BooksRepository implements IBooksRepository {
     }
 
 
-    async list({ page = 0, limit = 10, query = '' }): Promise<ListBooksResponse> {
+    async list({ page = 0, limit = 10, query = '' }): Promise<ListResponse> {
 
         const booksLength = await this.repository.count();
 
@@ -67,13 +61,13 @@ class BooksRepository implements IBooksRepository {
         });
 
         return {
-            books,
+            data: books,
             total: booksLength,
             page,
             nextPage: page + 1 < Math.ceil(booksLength / limit) ? page + 1 : null,
             limit
         };
-        
+
     }
 
     //Isso aqui provavelmente tá errado

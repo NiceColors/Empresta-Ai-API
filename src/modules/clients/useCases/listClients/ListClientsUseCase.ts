@@ -11,8 +11,8 @@ class ListClientsUseCase {
     ) { }
 
 
-    async execute(): Promise<IClientResponse[]> {
-        const clients = await this.clientsRepository.list();
+    async execute({ page, limit, query }): Promise<IClientResponse[]> {
+        const clients = await this.clientsRepository.list({ page, limit, query });
 
         return clients;
     }

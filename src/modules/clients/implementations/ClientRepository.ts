@@ -35,11 +35,32 @@ class ClientsRepository implements IClientsRepository {
         })
     }
 
-    async list(): Promise<IClientResponse[]> {
+    async list({ page = 0, limit = 8, query = '' }): Promise<any> {
 
-        const clients = await this.repository.findMany()
+        //somente o administrador pode receber os cpfs
 
-        return clients as unknown as IClientResponse[];
+        const usersLength = await this.repository.count();
+        const users = await this.repository.findMany({
+            skip: page * limit,
+            take: limit,
+            where: {
+                name: {
+                    contains: query
+                }
+            },
+            orderBy: {
+                createdAt: 'asc'
+
+            }
+        });
+
+        return {
+            data: users,
+            total: usersLength,
+            page,
+            nextPage: page + 1 < Math.ceil(usersLength / limit) ? page + 1 : null,
+            limit
+        };
     }
 
     async findById(id: string): Promise<IClientResponse> {
