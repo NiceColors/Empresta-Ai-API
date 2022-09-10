@@ -73,6 +73,7 @@ class BooksRepository implements IBooksRepository {
             nextPage: page + 1 < Math.ceil(booksLength / limit) ? page + 1 : null,
             limit
         };
+        
     }
 
     //Isso aqui provavelmente tá errado

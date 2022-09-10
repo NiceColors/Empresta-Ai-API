@@ -12,10 +12,10 @@ class ListUsersUseCase {
         private usersRepository: IEmployeeRepository
     ) {} // Msm coisa que definir o atributo privado antes e dps instaciar e atribuir um valor (this...0)
 
-    async execute(): Promise<TEmployee[]> {
-        const categories = await this.usersRepository.list();
+    async execute({limit, page, query}): Promise<TEmployee[]> {
+        const users = await this.usersRepository.list({limit, page, query});
 
-        return categories;
+        return users;
     }
 }
 

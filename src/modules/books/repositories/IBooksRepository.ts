@@ -3,13 +3,6 @@ import { Book } from "@prisma/client";
 import { ICreateBookDTO } from "../dtos/ICreateBookDTO";
 import { UpdateBook } from "../dtos/IUpdateBookDTO";
 
-
-type TList = {
-    page: number;
-    limit: number;
-    query: string;
-}
-
 type BooksResponse = {
     page: number;
     limit: number;
