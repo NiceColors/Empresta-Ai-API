@@ -3,12 +3,6 @@ import { inject, injectable } from "tsyringe";
 
 import { BooksRepository } from "../../implementations/BooksRepository";
 
-type BooksResponse = {
-    page: number;
-    limit: number;
-    total: number;
-    books: Book[]
-}
 @injectable()
 class ListBooksUseCase {
     constructor(
@@ -16,7 +10,7 @@ class ListBooksUseCase {
         private booksRepository: BooksRepository
     ) { }
 
-    async execute({ page, limit, query }): Promise<BooksResponse> {
+    async execute({ page, limit, query }): Promise<ListResponse> {
         const books = await this.booksRepository.list({ page, limit, query });
 
         return books;
