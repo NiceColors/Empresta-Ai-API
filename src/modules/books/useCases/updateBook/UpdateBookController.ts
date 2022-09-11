@@ -8,7 +8,7 @@ class UpdateBookController {
         const { id, ...fields } = request.body;
 
         const updateBookUseCase = container.resolve(UpdateBookUseCase);
-
+        fields.releaseYear = new Date(fields.releaseYear);
         await updateBookUseCase.execute(id, fields);
 
         return response.status(201).send();

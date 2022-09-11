@@ -22,7 +22,7 @@ class CreateBookController {
         await createBookUseCase.execute({
             author,
             title,
-            releaseYear,
+            releaseYear: new Date(releaseYear),
             bannerUrl,
             synopsis,
             loanRate,
