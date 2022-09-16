@@ -32,8 +32,9 @@ _Nota: Links em destaque indicam que a funcionalidade está completa_
 **Completos:** _(em fase de testes)_
 
 - **[Livros](#funcionalidades)** - Criação, Listagem, Edição e Remoção.
-
-**Em construção:**
+- **[Usuários](#funcionalidades)** - Criação, Listagem, Edição e Remoção.
+- **[Empréstimos](#funcionalidades)** - Criação, Listagem, Edição e Remoção.
+- **[Clientes](#funcionalidades)** - Criação, Listagem, Edição e Remoção.
 
 # Guia para desenvolvedores
 
@@ -78,6 +79,5 @@ A API desse Projeto foi desenvolvida usando Node.js, Express e Typescript utiliz
 
 - `desktop`: Server: [localhost:3333/api](http://localhost:3333).
 
-### Pacotes:
 
 
