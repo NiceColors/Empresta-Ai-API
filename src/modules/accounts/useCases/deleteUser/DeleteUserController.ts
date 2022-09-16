@@ -7,8 +7,6 @@ class DeleteUserController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { id, ids } = request.body ?? request.query;
 
-        console.log(request.body)
-
         const deleteUserUseCase = container.resolve(DeleteUserUseCase);
         const deletedUser = await deleteUserUseCase.execute({ id, ids });
 

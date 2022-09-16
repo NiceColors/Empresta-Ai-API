@@ -122,8 +122,6 @@ class EmployeersRepository implements IEmployeeRepository {
 
     async deleteOne(id: string): Promise<void> {
 
-        console.log(id)
-
         const employee = await this.repository.findUnique({
             where: {
                 id,

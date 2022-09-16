@@ -19,8 +19,6 @@ class RefreshTokenUseCase {
 
     async execute(token: string): Promise<string | Response> {
 
-        console.log('refreshToken:', token)
-
         const { email, sub: userId } = verify(
             token,
             auth.secretRefreshToken

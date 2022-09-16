@@ -14,8 +14,6 @@ class RefreshTokenController {
 
         const newToken = await refreshTokenUseCase.execute(token);
 
-        console.log(newToken)
-
         return response.json({
             token: newToken
         });

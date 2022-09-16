@@ -42,8 +42,6 @@ class LoansRepository implements ILoansRepository {
 
     async update({ ...loan }): Promise<Loan> {
 
-        console.log(loan);
-
         const updatedLoan = await this.repository.update({
             where: { id: loan.id },
             data: loan,
@@ -117,13 +115,9 @@ class LoansRepository implements ILoansRepository {
 
     async findById(data): Promise<LoanResponse | any> {
 
-        console.log('implemnetation:', data)
-
         const loan = await this.repository.findUnique({
             where: { id: data?.id },
         });
-
-        console.log('loan:', loan)
 
         // if (!loan)
         //     throw new AppError("Loan not found", 422);
