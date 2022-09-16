@@ -40,7 +40,9 @@ class LoansRepository implements ILoansRepository {
     }
 
 
-    async update(loan: Loan): Promise<Loan> {
+    async update({ ...loan }): Promise<Loan> {
+
+        console.log(loan);
 
         const updatedLoan = await this.repository.update({
             where: { id: loan.id },
@@ -56,15 +58,28 @@ class LoansRepository implements ILoansRepository {
         });
     }
 
-    async list(): Promise<LoanResponse[]> {
+    async list({ page = 0, limit = 10, query = '' }): Promise<any> {
         const loans = await this.repository.findMany();
 
+        const loansLength = await this.repository.count();
+
+        if (loansLength === 0) {
+            return {
+                data: [],
+                total: loansLength,
+                page,
+                nextPage: null,
+                limit
+            };
+        }
+
         const loansResponse = await Promise.all(loans.map(async loan => {
-            const { title: bookTitle } = await prisma.book.findUnique({
+            const book = await prisma.book.findUnique({
                 where: {
                     id: loan.bookId
                 }
             })
+
 
             const { name: clientName } = await prisma.client.findUnique({
                 where: {
@@ -82,50 +97,69 @@ class LoansRepository implements ILoansRepository {
                 ...loan,
                 employeeName,
                 clientName,
-                bookTitle,
+                bookTitle: book?.title,
             }
 
-            return loanResponse;
+
+            return loanResponse
+
+
         }))
 
-        return loansResponse;
+        return {
+            data: loansResponse,
+            total: loansLength,
+            page,
+            nextPage: page + 1 < Math.ceil(loansLength / limit) ? page + 1 : null,
+            limit
+        };
     }
 
-    async findById(id: string): Promise<LoanResponse | undefined> {
+    async findById(data): Promise<LoanResponse | any> {
+
+        console.log('implemnetation:', data)
+
         const loan = await this.repository.findUnique({
-            where: { id },
+            where: { id: data?.id },
         });
 
-        if (!loan) {
-            throw new AppError('Loan not found.', 422);
-        }
+        console.log('loan:', loan)
 
-        const { title: bookTitle } = await prisma.book.findUnique({
-            where: {
-                id: loan.bookId
-            }
-        })
+        // if (!loan)
+        //     throw new AppError("Loan not found", 422);
 
-        const { name: clientName } = await prisma.client.findUnique({
-            where: {
-                id: loan.clientId
-            }
-        })
+        return loan;
 
-        const { name: employeeName } = await prisma.employee.findUnique({
-            where: {
-                id: loan.employeeId
-            }
-        })
 
-        const loanResponse: LoanResponse = {
-            ...loan,
-            employeeName,
-            clientName,
-            bookTitle,
-        }
+        //         if (!loan) {
+        //             throw new AppError('Loan not found.', 422);
+        //         }
+        // 
+        //         const { title: bookTitle } = await prisma.book.findUnique({
+        //             where: {
+        //                 id: loan?.bookId
+        //             }
+        //         })
+        // 
+        //         const { name: clientName } = await prisma.client.findUnique({
+        //             where: {
+        //                 id: loan?.clientId
+        //             }
+        //         })
+        // 
+        //         const { name: employeeName } = await prisma.employee.findUnique({
+        //             where: {
+        //                 id: loan?.employeeId
+        //             }
+        //         })
+        // 
+        //         const loanResponse: LoanResponse = {
+        //             ...loan,
+        //             employeeName,
+        //             clientName,
+        //             bookTitle,
+        //         }
 
-        return loanResponse;
 
     }
 

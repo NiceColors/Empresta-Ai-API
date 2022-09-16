@@ -5,15 +5,18 @@ import { ListLoansUseCase } from "./ListLoansUseCase";
 class ListLoansController {
 
     async handle(request: Request, response: Response): Promise<Response> {
-        try {
-            const all = await container.resolve(ListLoansUseCase).execute();
+        const { limit, page, query } = request.query;
 
-            return response.status(200).json(all);
-        } catch (error) {
-            return response.status(400).json({
-                message: error.message || 'Unexpected error.',
+        const listLoansUseCase = container.resolve(ListLoansUseCase);
+
+        const loans = await listLoansUseCase
+            .execute({
+                page: parseInt(page as string) || 0,
+                limit: parseInt(limit as string) || 2,
+                query: query as string
             });
-        }
+
+        return response.json(loans);
     }
 
 

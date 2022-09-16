@@ -6,13 +6,16 @@ class UpdateLoanController {
 
 
     async handle(request: Request, response: Response): Promise<Response> {
-        const { id, status, bookId, clientId, employeeId } = request.body;
+        const { loanId: id, status, bookId, clientId, employeeId } = request.body;
 
         try {
             const loan = await container.resolve(UpdateLoanUseCase).execute({ id, status, bookId, clientId, employeeId });
 
+            if (!loan) throw new Error('Loan not found.');
+
+
             return response.status(200).json({
-                message: 'Loan updated successfully.',
+                message: 'Empréstimo atualizado com sucesso.',
                 data: loan
             });
         } catch (err) {

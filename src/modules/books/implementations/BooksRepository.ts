@@ -60,8 +60,23 @@ class BooksRepository implements IBooksRepository {
             }
         });
 
+        const booksResponse = await Promise.all(books.map(async book => {
+            const loan = await prisma.loan.findFirst({
+                where: {
+                    bookId: book.id,
+                    status: true
+                },
+                select: {
+                    id: true
+                }
+            })
+
+            return { ...book, loanId: loan?.id ?? null }
+        }))
+
+
         return {
-            data: books,
+            data: booksResponse,
             total: booksLength,
             page,
             nextPage: page + 1 < Math.ceil(booksLength / limit) ? page + 1 : null,

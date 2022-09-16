@@ -6,7 +6,7 @@ interface ILoansRepository {
     create(data: ICreateLoanDTO): Promise<void>;
     update({ ...loan }: Loan): Promise<Loan>;
     delete(id: string): Promise<void>;
-    list(): Promise<LoanResponse[]>;
+    list({ page, limit, query }: TList): Promise<LoanResponse[]>;
     findById(id: string): Promise<LoanResponse | undefined>;
     findByClientId(clientId: string): Promise<Loan[]>;
 }

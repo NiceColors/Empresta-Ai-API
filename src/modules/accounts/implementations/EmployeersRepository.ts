@@ -54,10 +54,15 @@ class EmployeersRepository implements IEmployeeRepository {
     async list({ page = 0, limit = 8, query = '' }): Promise<any> {
 
         //somente o administrador pode receber os cpfs
-   
-        
+
+
 
         const usersLength = await this.repository.count();
+
+        //não pegar a senha
+
+
+
         const users = await this.repository.findMany({
             skip: page * limit,
             take: limit,
@@ -69,11 +74,23 @@ class EmployeersRepository implements IEmployeeRepository {
             orderBy: {
                 createdAt: 'asc'
 
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                cpf: true,
+                birthdate: true,
+                role: true,
+                permissions: true,
+                createdAt: true,
+                updatedAt: true,
             }
+
         });
 
         return {
-            users,
+            data: users,
             total: usersLength,
             page,
             nextPage: page + 1 < Math.ceil(usersLength / limit) ? page + 1 : null,

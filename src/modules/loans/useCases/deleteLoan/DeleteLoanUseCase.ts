@@ -19,7 +19,7 @@ class DeleteLoanUseCase {
         if (!loan) {
             throw new Error('Loan not found.');
         }
-        
+
         await this.booksRepository.update(loan.bookId, { status: true });
 
         await this.loansRepository.delete(id);

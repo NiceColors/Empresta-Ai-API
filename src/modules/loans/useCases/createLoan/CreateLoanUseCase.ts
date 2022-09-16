@@ -12,8 +12,6 @@ class CreateLoanUseCase {
     constructor(
         @inject("LoansRepository")
         private loansRepository: ILoansRepository,
-        @inject("ClientsRepository")
-        private clientsRepository: IClientsRepository,
         @inject("EmployeersRepository")
         private employeeRepository: IEmployeeRepository,
         @inject("BooksRepository")
