@@ -53,22 +53,17 @@ class EmployeersRepository implements IEmployeeRepository {
 
     async list({ page = 0, limit = 8, query = '' }): Promise<any> {
 
-        //somente o administrador pode receber os cpfs
-
-
-
         const usersLength = await this.repository.count();
-
-        //não pegar a senha
-
-
 
         const users = await this.repository.findMany({
             skip: page * limit,
             take: limit,
             where: {
                 name: {
-                    contains: query
+                    contains: query,
+                },
+                email: {
+                    not: 'admin@admin.com'
                 }
             },
             orderBy: {
@@ -101,7 +96,6 @@ class EmployeersRepository implements IEmployeeRepository {
 
     async update(id: string, data: any): Promise<void> {
 
-        console.log(id, data)
 
         const employee = await this.repository.findUnique({
             where: {
