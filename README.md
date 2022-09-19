@@ -77,7 +77,7 @@ A API desse Projeto foi desenvolvida usando Node.js, Express e Typescript utiliz
 
 ### Aplicação:
 
-- `desktop`: Server: [localhost:3333/api](http://localhost:3333).
+- `desktop`: Server: [localhost:3333/](http://localhost:3333).
 
 
 
