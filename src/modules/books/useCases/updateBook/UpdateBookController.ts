@@ -5,7 +5,11 @@ import { UpdateBookUseCase } from "./UpdateBookUseCase";
 
 class UpdateBookController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { id, ...fields } = request.body || request.query;
+        const url = request.url.replace('/', '')
+
+        const { ...fields } = request.body || request.query || request.params
+
+        const id = url ?? fields.id
 
         const updateBookUseCase = container.resolve(UpdateBookUseCase);
         fields.releaseYear = new Date(fields.releaseYear);

@@ -21,8 +21,8 @@ const updateUserController = new UpdateUserController();
 //Não usar o ensureAdmin pois ainda é preciso refatorar
 usersRoutes.get("/", ensureAuthenticated, listUserController.handle);
 usersRoutes.post("/", ensureAuthenticated, createUserController.handle);
-usersRoutes.delete("/", ensureAuthenticated, deleteUserController.handle);
-usersRoutes.put("/", updateUserController.handle);
+usersRoutes.delete("/:id", ensureAuthenticated, deleteUserController.handle);
+usersRoutes.put("/:id", updateUserController.handle);
 usersRoutes.get("/me", ensureAuthenticated, actualUserController.handle);
 
 

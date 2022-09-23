@@ -73,7 +73,7 @@ const seedBooks = async ({ list, query }: TSeedBooks) => {
     list.forEach(async (item) => {
         //verifica se o livro já existe no banco de dados e caso exista não cria
         let bookIsCreated = await searchBook({ [query]: item })
-        if (!bookIsCreated) return console.log('Book already exists')
+        if (bookIsCreated) return console.log('Book already exists')
         // cria o livro no banco de dados
         const bookData = await getGoogleBookData(item)
         await createBook(bookData)
@@ -101,7 +101,7 @@ async function main() {
 
     const isbns = nyTimesBooksData.results.map((book) => book.isbns[0].isbn10) // Pega os isbn's
     seedBooks({ list: isbns, query: "isbn" })
-    const amzBaseUrl = "https://www.amazon.com.br/gp/bestsellers/books/7841776011/ref=zg_bs_nav_books_2_7841775011"
+    const amzBaseUrl = "https://www.amazon.com.br/gp/bestsellers/books/7841279011/ref=zg_bs_nav_books_1"
     const amzBooksData = await scraper(amzBaseUrl) // Pega os titulos dos livros da Amazon
     seedBooks({ list: amzBooksData, query: "title" })
     console.log(amzBooksData.length);

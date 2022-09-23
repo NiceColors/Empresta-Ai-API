@@ -16,7 +16,7 @@ const listClients = new ListClientsController();
 
 clientsRoutes.post('/', ensureAuthenticated, createClient.handle)
 clientsRoutes.get('/', ensureAuthenticated, listClients.handle)
-clientsRoutes.put('/', ensureAuthenticated, updateClient.handle)
-clientsRoutes.delete('/', ensureAuthenticated, deleteClient.handle)
+clientsRoutes.put('/:id', ensureAuthenticated, updateClient.handle)
+clientsRoutes.delete('/:id', ensureAuthenticated, deleteClient.handle)
 
 export { clientsRoutes };

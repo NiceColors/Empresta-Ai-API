@@ -17,7 +17,7 @@ const loanListController = new ListLoansController();
 //Não usar o ensureAdmin pois ainda é preciso refatorar
 loansRoutes.get('/', ensureAuthenticated, loanListController.handle)
 loansRoutes.post('/', ensureAuthenticated, loanCreateController.handle)
-loansRoutes.delete('/', ensureAuthenticated, loanDeleteController.handle)
-loansRoutes.put('/', ensureAuthenticated, loanUpdateController.handle)
+loansRoutes.delete('/:id', ensureAuthenticated, loanDeleteController.handle)
+loansRoutes.put('/:id', ensureAuthenticated, loanUpdateController.handle)
 
 export { loansRoutes };

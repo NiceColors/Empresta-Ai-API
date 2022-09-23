@@ -5,9 +5,11 @@ import { DeleteBookUseCase } from "./DeleteBookUseCase";
 
 class DeleteBookController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const id = request.url.replace('/', '')
+        const url = request.url.replace('/', '')
 
-        const { isbn } = request.body || request.query || request.params
+        const { isbn, ...data } = request.body || request.query || request.params
+
+        const id = url ?? data.id
 
         const deleteBookUseCase = container.resolve(DeleteBookUseCase);
 
