@@ -42,15 +42,22 @@ class LoansRepository implements ILoansRepository {
 
     async update({ ...loan }): Promise<Loan> {
 
+
         const updatedLoan = await this.repository.update({
             where: { id: loan.id },
-            data: loan,
+            data: {
+                ...loan,
+            },
+
         });
 
         return updatedLoan;
     }
 
     async delete(id: string): Promise<void> {
+
+        console.log('id:', id)
+
         await this.repository.delete({
             where: { id },
         });
@@ -115,12 +122,12 @@ class LoansRepository implements ILoansRepository {
 
     async findById(data): Promise<LoanResponse | any> {
 
-
-        console.log(data)
+        console.log('data', data)
 
         const loan = await this.repository.findUnique({
-            where: { id: data?.id },
+            where: { id: data.id },
         });
+
 
         if (!loan)
             throw new AppError("Empréstimos não encontrado", 422);

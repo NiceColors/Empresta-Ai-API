@@ -79,7 +79,7 @@ class BooksRepository implements IBooksRepository {
             where: { id },
         });
 
-        if (!book) throw new AppError("Livro não encontrado", 422);
+        // if (!book) throw new AppError("Livro não encontrado", 422);
 
 
         const updateresult = await this.repository.update({
@@ -103,7 +103,7 @@ class BooksRepository implements IBooksRepository {
             where: { id },
         });
 
-        if (!book) throw new AppError("Livro não encontrado", 404);
+        // if (!book) throw new AppError("Livro não encontrado", 404);
 
 
         const loan = await prisma.loan.findFirst({

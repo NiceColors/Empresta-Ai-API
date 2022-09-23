@@ -19,6 +19,7 @@ class UpdateLoanUseCase {
 
     async execute(data): Promise<void | Loan> {
 
+
         const loan = await this.loansRepository.findById(data);
 
         if (!loan)
