@@ -16,7 +16,10 @@ class CreateBookController {
             publisher,
             isbn,
         } = request.body;
-
+        if(!validisbn(isbn)){
+            throw new AppError("ISBN inválido", 422)
+        }
+        if(!bookreleaseYear(releaseYear)) throw new AppError("Ano de Lançamento Inválido", 422)
         const createBookUseCase = container.resolve(CreateBookUseCase);
 
         await createBookUseCase.execute({
