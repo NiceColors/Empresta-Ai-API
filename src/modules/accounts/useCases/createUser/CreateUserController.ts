@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import { emailVal, formatCPF, nameVal, passwdVal } from "../../validators/validators";
 
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
