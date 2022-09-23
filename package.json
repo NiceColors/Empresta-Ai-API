@@ -44,7 +44,7 @@
         "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn --files ./src/server.ts",
         "reset": "prisma migrate reset -f",
         "migrate": "prisma migrate dev --skip-generate",
-        "seed-reset-all": "npm run reset && npm run migrate && npm run seed",
+        "seed-reset-all": "npm run reset && npm run migrate && npm run seed-users",
         "seed-users": "ts-node-dev --transpile-only prisma/seeds/users.seed.ts",
         "seed-books": "ts-node-dev --transpile-only prisma/seeds/books.seed.ts",
         "seed-all": "ts-node-dev --transpile-only prisma/seeds/all.seed.ts"

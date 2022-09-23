@@ -119,8 +119,8 @@ class LoansRepository implements ILoansRepository {
             where: { id: data?.id },
         });
 
-        // if (!loan)
-        //     throw new AppError("Loan not found", 422);
+        if (!loan)
+            throw new AppError("Empréstimos não encontrado", 422);
 
         return loan;
 

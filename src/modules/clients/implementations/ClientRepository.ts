@@ -10,16 +10,11 @@ class ClientsRepository implements IClientsRepository {
 
     async create(data: ICreateClientDTO): Promise<void> {
 
-        try {
-            await this.repository.create({
-                data
-            })
-        } catch (error) {
-            throw new AppError(error.message, 400)
-        }
+        await this.repository.create({
+            data
+        })
 
     }
-
 
     async update(client: IUpdateClientDTO): Promise<IClientResponse | void> {
 
@@ -27,17 +22,25 @@ class ClientsRepository implements IClientsRepository {
             where: { id: client.id },
             data: { ...client }
         })
+
     }
+
     async delete(id: string): Promise<void> {
+
+        const loans = await prisma.loan.findMany({
+            where: { clientId: id }
+        })
+
+        if (loans.length > 0)
+            throw new AppError('Não é possível excluir um cliente que possui empréstimos', 402);
 
         await this.repository.delete({
             where: { id }
         })
+
     }
 
     async list({ page = 0, limit = 8, query = '' }): Promise<any> {
-
-        //somente o administrador pode receber os cpfs
 
         const usersLength = await this.repository.count();
         const users = await this.repository.findMany({
@@ -50,9 +53,18 @@ class ClientsRepository implements IClientsRepository {
             },
             orderBy: {
                 createdAt: 'asc'
-
+            },
+            select: {
+                id: true,
+                name: true,
+                cpf: true,
+                birthdate: true,
+                createdAt: true,
+                updatedAt: true,
             }
         });
+
+
 
         return {
             data: users,
@@ -61,31 +73,47 @@ class ClientsRepository implements IClientsRepository {
             nextPage: page + 1 < Math.ceil(usersLength / limit) ? page + 1 : null,
             limit
         };
+
     }
 
     async findById(id: string): Promise<IClientResponse> {
+
         const client = await this.repository.findUnique({
             where: { id },
         });
+
+        if (!client)
+            throw new AppError('Cliente não encontrado', 402);
+
 
         return client as unknown as IClientResponse;
 
     }
     async findByName(name: string): Promise<IClientResponse> {
+
         const client = await this.repository.findMany({
             where: { name },
         });
 
+        if (!client)
+            throw new AppError('Cliente não encontrado', 402);
+
         return client as unknown as IClientResponse;
+
 
 
     }
     async findByCpf(cpf: string): Promise<IClientResponse> {
+
         const client = await this.repository.findUnique({
             where: { cpf },
         });
 
+        if (!client)
+            throw new AppError('Cliente não encontrado', 402);
+
         return client as unknown as IClientResponse;
+
     }
 
 

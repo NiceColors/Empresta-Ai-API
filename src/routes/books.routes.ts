@@ -15,8 +15,8 @@ const deleteBookController = new DeleteBookController();
 
 booksRoutes.use(ensureAuthenticated);
 booksRoutes.post("/", createBookController.handle);
-booksRoutes.put("/", updateBookController.handle);
+booksRoutes.put("/:id", updateBookController.handle);
 booksRoutes.get("/", listBookController.handle);
-booksRoutes.delete("/", deleteBookController.handle);
+booksRoutes.delete("/:id", deleteBookController.handle);
 
 export { booksRoutes };

@@ -9,23 +9,33 @@ class EmployeersRepository implements IEmployeeRepository {
     private repository = prisma.employee;
 
     async findById(id: string): Promise<Employee> {
+
         const employee = await this.repository.findUnique({
             where: {
                 id,
             },
         });
 
+        if (!employee) throw new AppError('Usuário não encontrado', 404);
+
         return employee;
+
+
     }
 
     async findByEmail(email: string): Promise<Employee> {
+
 
         const employee = await this.repository.findUnique({
             where: {
                 email,
             },
         });
+
+        if (!employee) throw new AppError('Usuário não encontrado', 404);
+
         return employee;
+
 
     }
 
@@ -38,7 +48,8 @@ class EmployeersRepository implements IEmployeeRepository {
         role,
         permissions,
     }: ICreateEmployeeDTO): Promise<void> {
-        await this.repository.create({
+
+        const user = await this.repository.create({
             data: {
                 email,
                 password,
@@ -49,6 +60,10 @@ class EmployeersRepository implements IEmployeeRepository {
                 permissions,
             },
         });
+
+        if (!user) throw new AppError('Erro ao criar usuário', 501);
+
+
     }
 
     async list({ page = 0, limit = 8, query = '' }): Promise<any> {
@@ -91,10 +106,12 @@ class EmployeersRepository implements IEmployeeRepository {
             nextPage: page + 1 < Math.ceil(usersLength / limit) ? page + 1 : null,
             limit
         };
+
     }
 
 
     async update(id: string, data: any): Promise<void> {
+
 
 
         const employee = await this.repository.findUnique({
@@ -103,7 +120,7 @@ class EmployeersRepository implements IEmployeeRepository {
             },
         });
         if (!employee)
-            throw new AppError('User not found', 402);
+            throw new AppError('Usuário não encontrado', 402);
 
         const updateEmployee = await this.repository.update({
             where: {
@@ -117,27 +134,33 @@ class EmployeersRepository implements IEmployeeRepository {
         if (!updateEmployee)
             throw new AppError('Error', 401);
 
+
     }
 
 
     async deleteOne(id: string): Promise<void> {
 
-        const employee = await this.repository.findUnique({
-            where: {
-                id,
-            },
-        });
-        if (!employee) {
-            throw new AppError('User not found', 404);
+        try {
+            const employee = await this.repository.findUnique({
+                where: {
+                    id,
+                },
+            });
+            if (!employee) {
+                throw new AppError('User not found', 404);
+            }
+            await this.repository.delete({
+                where: {
+                    id,
+                },
+            });
+        } catch (error) {
+            throw new AppError('Erro ao criar usuário', 501);
         }
-        await this.repository.delete({
-            where: {
-                id,
-            },
-        });
     }
 
     async deleteMany(id: string[]): Promise<void> {
+
         await this.repository.deleteMany({
             where: {
                 id: {
@@ -145,6 +168,7 @@ class EmployeersRepository implements IEmployeeRepository {
                 }
             }
         });
+
     }
 
 }

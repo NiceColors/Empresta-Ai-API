@@ -5,7 +5,7 @@ import { UpdateBookUseCase } from "./UpdateBookUseCase";
 
 class UpdateBookController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { id, ...fields } = request.body;
+        const { id, ...fields } = request.body || request.query;
 
         const updateBookUseCase = container.resolve(UpdateBookUseCase);
         fields.releaseYear = new Date(fields.releaseYear);
