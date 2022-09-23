@@ -115,6 +115,9 @@ class LoansRepository implements ILoansRepository {
 
     async findById(data): Promise<LoanResponse | any> {
 
+
+        console.log(data)
+
         const loan = await this.repository.findUnique({
             where: { id: data?.id },
         });

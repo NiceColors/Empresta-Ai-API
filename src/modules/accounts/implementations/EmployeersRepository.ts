@@ -32,7 +32,7 @@ class EmployeersRepository implements IEmployeeRepository {
             },
         });
 
-        if (!employee) throw new AppError('Usuário não encontrado', 404);
+        // if (!employee) throw new AppError('Usuário não encontrado', 404);
 
         return employee;
 
