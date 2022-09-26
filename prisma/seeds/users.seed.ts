@@ -7,7 +7,7 @@ async function main() {
     const userData: Prisma.EmployeeCreateInput[] = [
         {
             email: "admin@admin.com",
-            password: await hash("admin", 8),
+            password: await hash("admin2", 8),
             name: "Administrador",
             cpf: "9999999999",
             birthdate: new Date(),

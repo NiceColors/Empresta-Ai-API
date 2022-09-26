@@ -101,7 +101,7 @@ async function main() {
 
     const isbns = nyTimesBooksData.results.map((book) => book.isbns[0].isbn10) // Pega os isbn's
     seedBooks({ list: isbns, query: "isbn" })
-    const amzBaseUrl = "https://www.amazon.com.br/gp/bestsellers/books/7841279011/ref=zg_bs_nav_books_1"
+    const amzBaseUrl = "https://www.amazon.com.br/gp/bestsellers/books/7842714011/ref=pd_zg_hrsr_books"
     const amzBooksData = await scraper(amzBaseUrl) // Pega os titulos dos livros da Amazon
     seedBooks({ list: amzBooksData, query: "title" })
     console.log(amzBooksData.length);
