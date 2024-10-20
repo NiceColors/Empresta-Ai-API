@@ -69,9 +69,9 @@ _Nota: Links em destaque indicam que a funcionalidade está completa_
 
 A API desse Projeto foi desenvolvida usando Node.js, Express e Typescript utilizando o padrão SOLID.
 
-- Prisma? 🤨 Dividido em três camadas como núcleo de sua arquitetura, o [Prisma](https://www.prisma.io/) é um ORM com um conjunto de ferramentas para banco de dados de código aberto. 
-- Express 😎.
-- Typescript 💕.
+- Prisma? Dividido em três camadas como núcleo de sua arquitetura, o [Prisma](https://www.prisma.io/) é um ORM com um conjunto de ferramentas para banco de dados de código aberto. 
+- Express.
+- Typescript.
 
 ## Estrutura:
 
